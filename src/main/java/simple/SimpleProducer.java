@@ -23,7 +23,7 @@ public class SimpleProducer {
         configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
-        String messageValue = "testMessage5678";
+        String messageValue = "testMessage from mac-java";
         ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, messageValue);
         producer.send(record);
         logger.info("{}", record);
