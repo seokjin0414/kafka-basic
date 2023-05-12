@@ -7,11 +7,12 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import java.util.Properties;
 
 public class SimpleProducer {
     private final static Logger logger = LoggerFactory.getLogger(SimpleProducer.class);
-    private final static String TOPIC_NAME = "test";
+    private final static String TOPIC_NAME = "hello.kafka";
     private final static String BOOTSTRAP_SERVERS = "my-kafka:9092";
 
     public static void main(String[] args) {
@@ -22,8 +23,7 @@ public class SimpleProducer {
         configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
-
-        String messageValue = "testMessage";
+        String messageValue = "testMessage5678";
         ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, messageValue);
         producer.send(record);
         logger.info("{}", record);
