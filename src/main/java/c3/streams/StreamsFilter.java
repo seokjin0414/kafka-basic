@@ -10,10 +10,10 @@ import java.util.Properties;
 
 public class StreamsFilter {
 
-    private static String APPLICATION_NAME = "streams-filter-application";
+    private static String APPLICATION_NAME = "streams-transection-of-block-filter-application";
     private static String BOOTSTRAP_SERVERS = "my-kafka:9092";
-    private static String STREAM_LOG = "stream_log";
-    private static String STREAM_LOG_FILTER = "stream_log_filter";
+    private static String STREAM_LOG = "stream_transection_of_block";
+    private static String STREAM_LOG_FILTER = "stream_transection_of_block_filtered";
 
     public static void main(String[] args) {
 
