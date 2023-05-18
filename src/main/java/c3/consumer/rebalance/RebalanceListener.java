@@ -1,4 +1,4 @@
-package c3consumer.rebalance;
+package c3.consumer.rebalance;
 
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.common.TopicPartition;
