@@ -20,9 +20,20 @@ public class ProducerCustom {
         configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaJsonSerializer.class.getName());
 
-        KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
 
-        TransectionOfBlock vo = new TransectionOfBlock();
+
+        KafkaProducer<String, TransectionOfBlock> producer = new KafkaProducer<>(configs);
+
+        TransectionOfBlock vo = TransectionOfBlock.builder()
+                .transactionHash("qwe121asd3144qwe")
+                .block("1000")
+                .fromAddr("jin")
+                .toAddr("mong")
+                .volume("2345")
+                .gasPrice("1.1")
+                .tokenContractAddr("BIO")
+                .timeStamp("2023-05-20 23:00:01")
+                .build();
 
         ProducerRecord<String, TransectionOfBlock> record = new ProducerRecord<>(TOPIC_NAME, "k1", vo);
         producer.send(record);
