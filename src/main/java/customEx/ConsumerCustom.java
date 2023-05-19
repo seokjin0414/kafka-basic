@@ -6,7 +6,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import serializer.KafkaJsonDeserializer;
-import vo.TransectionOfBlock;
+import vo.TxOfBlock;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class ConsumerCustom {
     private final static String TOPIC_NAME = "hello.kafka";
     private final static String BOOTSTRAP_SERVERS = "my-kafka:9092";
     private final static String GROUP_ID = "hello-group";
-    private static KafkaConsumer<String, TransectionOfBlock> consumer;
+    private static KafkaConsumer<String, TxOfBlock> consumer;
 
     public static void main(String[] args) {
         Runtime.getRuntime().addShutdownHook(new ShutdownThread());
@@ -34,8 +34,8 @@ public class ConsumerCustom {
 
         try {
             while (true) {
-                ConsumerRecords<String, TransectionOfBlock> records = consumer.poll(Duration.ofSeconds(1));
-                for (ConsumerRecord<String, TransectionOfBlock> record : records) {
+                ConsumerRecords<String, TxOfBlock> records = consumer.poll(Duration.ofSeconds(1));
+                for (ConsumerRecord<String, TxOfBlock> record : records) {
                     logger.info("{}", record);
                 }
                 consumer.commitSync();
