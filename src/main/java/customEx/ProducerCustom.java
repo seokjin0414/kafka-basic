@@ -4,6 +4,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
+import serializer.KafkaJsonSerializer;
+import vo.TransectionOfBlock;
 
 import java.util.Properties;
 
@@ -16,14 +18,15 @@ public class ProducerCustom {
         Properties configs = new Properties();
         configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaJsonSerializer.class.getName());
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(configs);
 
-        ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, "k1", "Pangyo");
+        TransectionOfBlock vo = new TransectionOfBlock();
+
+        ProducerRecord<String, TransectionOfBlock> record = new ProducerRecord<>(TOPIC_NAME, "k1", vo);
         producer.send(record);
-        ProducerRecord<String, String> record2 = new ProducerRecord<>(TOPIC_NAME, "k2", "Busan");
-        producer.send(record2);
+
         producer.flush();
         producer.close();
     }

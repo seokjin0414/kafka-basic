@@ -5,6 +5,7 @@ import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import serializer.KafkaJsonDeserializer;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -24,7 +25,7 @@ public class ConsumerCustom {
         configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         configs.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
         configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaJsonDeserializer.class.getName());
         configs.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 
         consumer = new KafkaConsumer<>(configs);
@@ -32,8 +33,8 @@ public class ConsumerCustom {
 
         try {
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
-                for (ConsumerRecord<String, String> record : records) {
+                ConsumerRecords<String, CustomObject> records = consumer.poll(Duration.ofSeconds(1));
+                for (ConsumerRecord<String, CustomObject> record : records) {
                     logger.info("{}", record);
                 }
                 consumer.commitSync();
