@@ -23,17 +23,24 @@ public class ProducerCustom {
         KafkaProducer<String, TxOfBlock> producer = new KafkaProducer<>(configs);
 
         TxOfBlock vo = new TxOfBlock();
-        vo.setTransactionHash("qwe121asd3144qwe");
-        vo.setBlock("13245151345");
-        vo.setFromAddr("jin");
-        vo.setToAddr("mong");
-        vo.setVolume("79976234");
-        vo.setGasPrice("1.1");
-        vo.setTokenContractAddr("BIO");
-        vo.setTimeStamp("2023-05-20 23:00:01");
 
-        ProducerRecord<String, TxOfBlock> record = new ProducerRecord<>(TOPIC_NAME, "BIO", vo);
-        producer.send(record);
+        int n = 0;
+
+        while (n < 100000) {
+
+            vo.setTransactionHash("jsdb76123jdc9823" + String.valueOf(n));
+            vo.setBlock("n");
+            vo.setFromAddr("jin");
+            vo.setToAddr("mong");
+            vo.setVolume("123145");
+            vo.setGasPrice("1.1");
+            vo.setTokenContractAddr("BIO");
+            vo.setTimeStamp("2023-05-20 23:00:01");
+
+            ProducerRecord<String, TxOfBlock> record = new ProducerRecord<>(TOPIC_NAME, "BIO", vo);
+            producer.send(record);
+            n ++;
+        }
 
         producer.flush();
         producer.close();
