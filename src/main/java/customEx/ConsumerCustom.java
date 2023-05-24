@@ -32,6 +32,11 @@ public class ConsumerCustom {
         consumer = new KafkaConsumer<>(configs);
         consumer.subscribe(Arrays.asList(TOPIC_NAME));
 
+
+
+
+
+        // check
         try {
             while (true) {
                 ConsumerRecords<String, TxOfBlock> records = consumer.poll(Duration.ofSeconds(1));
