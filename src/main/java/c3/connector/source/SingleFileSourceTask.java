@@ -45,16 +45,16 @@ public class SingleFileSourceTask extends SourceTask {
             topic = config.getString(SingleFileSourceConnectorConfig.TOPIC_NAME);
             file = config.getString(SingleFileSourceConnectorConfig.DIR_FILE_NAME);
             fileNamePartition = Collections.singletonMap(FILENAME_FIELD, file);
-            offset = context.offsetStorageReader().offset(fileNamePartition);
+            offset = context.offsetStorageReader().offset(fileNamePartition); //소스 커넥터에서 관리하는 내부 번호를 기록하는 용도
 
             // Get file offset from offsetStorageReader
             if (offset != null) {
                 Object lastReadFileOffset = offset.get(POSITION_FIELD);
                 if (lastReadFileOffset != null) {
-                    position = (Long) lastReadFileOffset;
+                    position = (Long) lastReadFileOffset; //만약 기존에 저장된 내부 번호가 있다면 해당 번호부터 시작
                 }
             } else {
-                position = 0;
+                position = 0; //만약기존에저장된내부번호가없다면0부터시작
             }
 
         } catch (Exception e) {
@@ -68,16 +68,16 @@ public class SingleFileSourceTask extends SourceTask {
         try {
             Thread.sleep(1000);
 
-            List<String> lines = getLines(position);
+            List<String> lines = getLines(position);  //가져가고 싶은 position(내부 번호)부터 데이터를 읽어감
 
             if (lines.size() > 0) {
                 lines.forEach(line -> {
                     Map<String, Long> sourceOffset = Collections.singletonMap(POSITION_FIELD, ++position);
                     SourceRecord sourceRecord = new SourceRecord(fileNamePartition, sourceOffset, topic, Schema.STRING_SCHEMA, line);
-                    results.add(sourceRecord);
+                    results.add(sourceRecord); //토픽으로 보내고 싶은 데이터는 List<SourceRecord>에 element 추가
                 });
             }
-            return results;
+            return results; //최종적으로 토픽으로 전송되는 List
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             throw new ConnectException(e.getMessage(), e);
