@@ -34,7 +34,7 @@ public class SingleFileSourceTask extends SourceTask {
 
     @Override
     public String version() {
-        return "1.0";
+        return "3.4";
     }
 
     @Override
