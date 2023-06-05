@@ -35,7 +35,7 @@ public class SingleFileSinkTask extends SinkTask {
     }
 
     @Override
-    public void put(Collection<SinkRecord> records) {
+    public void put(Collection<SinkRecord> records) { //토픽에서 polling 되어 처리가 되어야 하는 다수의 레코드
         try {
             for (SinkRecord record : records) {
                 fileWriter.write(record.value().toString() + "\n");
@@ -46,7 +46,7 @@ public class SingleFileSinkTask extends SinkTask {
     }
 
     @Override
-    public void flush(Map<TopicPartition, OffsetAndMetadata> offsets) {
+    public void flush(Map<TopicPartition, OffsetAndMetadata> offsets) { //커밋 시점마다 호출되는 메서드
         try {
             fileWriter.flush();
         } catch (IOException e) {
