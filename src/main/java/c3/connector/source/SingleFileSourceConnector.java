@@ -34,6 +34,7 @@ public class SingleFileSourceConnector extends SourceConnector {
         }
     }
 
+    // 보통 1개의 connector 당 1개의 task
     @Override
     public Class<? extends Task> taskClass() {
         return SingleFileSourceTask.class;
