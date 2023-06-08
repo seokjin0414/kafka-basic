@@ -14,9 +14,9 @@ import java.util.Properties;
 
 public class ConsumerCustom {
     private final static Logger logger = LoggerFactory.getLogger(ConsumerCustom.class);
-    private final static String TOPIC_NAME = "hello.kafka";
+    private final static String TOPIC_NAME = "stream_transection_of_block";
     private final static String BOOTSTRAP_SERVERS = "my-kafka:9092";
-    private final static String GROUP_ID = "hello-group";
+    private final static String GROUP_ID = "transection_group";
     private static KafkaConsumer<String, TxOfBlock> consumer;
 
     public static void main(String[] args) {
